@@ -2,36 +2,37 @@
 
 This /prod directory will hold the changes made for the Web Perf Optimization project (P4). Measurements and results will be documented here. The files are in the gh-pages branch so real-world measurements can be taken.
 
+Page can be opened at http://hoanger.github.io/P4/prod/
+https://github.com/hoanger/P4/tree/gh-pages/prod
+
 ### Optimizations for index.html
 
 ##Start:
-Pagespeed score: 28 mobile, 28 desktop
-DCL: 142ms, onload: 2635ms
-15 requests, 2.3 MB transferred finish in 2.8 s
+	Pagespeed score: 28 mobile, 28 desktop
+	DCL: 142ms, onload: 2635ms
+	15 requests, 2.3 MB transferred finish in 2.8 s
 
 1. Reduce and resize image to 100px wide and compress pizzeria.jpg (new file pizzeria100.jpg): reduce bytes
 	pizzeria.jpg: 2.3 MB transferred 2.8s
 	pizzeria100.jpg: 8.2 KB transferred 170 ms
 
-Pagespeed score: 76 mobile, 89 desktop
-DCL: 204ms, onload: 602ms
-15 requests, 61.5 KB transferred finish in 737 ms
+	Pagespeed score: 76 mobile, 89 desktop
+	DCL: 204ms, onload: 602ms
+	15 requests, 61.5 KB transferred finish in 737 ms
 
 1. Move analytics script to the end of body and make async: NO CHANGE
 
 1. Inline small CSS files in HTML head to lower server requests: reduce server requests
 
-Pagespeed score: 77 mobile, 90 desktop
-DCL: 84ms, onload: 309ms
-12 requests, 72.9 KB transferred finish 355 ms
+	Pagespeed score: 77 mobile, 90 desktop
+	DCL: 84ms, onload: 309ms
+	12 requests, 72.9 KB transferred finish 355 ms
 
 1. Request Google web font via javascript at end of body: shorten CRP
 
-
-Pagespeed score: 95 mobile, 96 desktop
-DCL: 15ms, onload: 226ms
-13 requests, 79.9 KB transferred finish 267 ms
-
+	Pagespeed score: 95 mobile, 96 desktop
+	DCL: 15ms, onload: 226ms
+	13 requests, 79.9 KB transferred finish 267 ms
 
 ### Optimizations for pizza.html
 
