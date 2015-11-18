@@ -285,32 +285,53 @@ function getNoun(y) {
 var adjectives = ["dark", "color", "whimsical", "shiny", "noise", "apocalyptic", "insulting", "praise", "scientific"];  // types of adjectives for pizza titles
 var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "places", "scifi"];                        // types of nouns for pizza titles
 
+/**
+* @description Gets random integer
+* @param {number} range
+* @returns {number} Random integer between 0 and (num - 1)
+*/
+function randomInt(range) {
+  return Math.floor(Math.random() * range);
+}
+
+/**
+* @description Gets random element from array
+* @param {array} arr
+* @returns {obj} random object from arr
+*/
+function randomArrItem(arr) {
+  var randomIndex = randomInt(arr.length);
+  return arr[randomIndex];
+}
+
+
 // Generates random numbers for getAdj and getNoun functions and returns a new pizza name
 function generator(adj, noun) {
-  var adjectives = getAdj(adj);
-  var nouns = getNoun(noun);
-  var randomAdjective = parseInt(Math.random() * adjectives.length);
-  var randomNoun = parseInt(Math.random() * nouns.length);
-  var name = "The " + adjectives[randomAdjective].capitalize() + " " + nouns[randomNoun].capitalize();
+  var adjectivesArr = getAdj(adj);
+  var nounsArr = getNoun(noun);
+  //var randomAdjective = parseInt(Math.random() * adjectives.length);
+  //var randomNoun = parseInt(Math.random() * nouns.length);
+  var name = "The " + randomArrItem(adjectivesArr).capitalize() + " " + randomArrItem(nounsArr).capitalize();
   return name;
 }
 
 // Chooses random adjective and random noun
 function randomName() {
-  var randomNumberAdj = parseInt(Math.random() * adjectives.length);
-  var randomNumberNoun = parseInt(Math.random() * nouns.length);
-  return generator(adjectives[randomNumberAdj], nouns[randomNumberNoun]);
+  //var randomNumberAdj = parseInt(Math.random() * adjectives.length);
+  //var randomNumberNoun = parseInt(Math.random() * nouns.length);
+  return generator(randomArrItem(adjectives), randomArrItem(nouns));
 }
-
+/*
+* Redundant functions
 // These functions return a string of a random ingredient from each respective category of ingredients.
 var selectRandomMeat = function() {
-  var randomMeat = pizzaIngredients.meats[Math.floor((Math.random() * pizzaIngredients.meats.length))];
-  return randomMeat;
+  //var randomMeat = pizzaIngredients.meats[Math.floor((Math.random() * pizzaIngredients.meats.length))];
+  return randomArrItem(pizzaIngredients.meats);
 };
 
 var selectRandomNonMeat = function() {
-  var randomNonMeat = pizzaIngredients.nonMeats[Math.floor((Math.random() * pizzaIngredients.nonMeats.length))];
-  return randomNonMeat;
+  //var randomNonMeat = pizzaIngredients.nonMeats[Math.floor((Math.random() * pizzaIngredients.nonMeats.length))];
+  return randomArrItem(pizzaIngredients.nonMeats);
 };
 
 var selectRandomCheese = function() {
@@ -327,6 +348,7 @@ var selectRandomCrust = function() {
   var randomCrust = pizzaIngredients.crusts[Math.floor((Math.random() * pizzaIngredients.crusts.length))];
   return randomCrust;
 };
+*/
 
 var ingredientItemizer = function(string) {
   return "<li>" + string + "</li>";
@@ -335,25 +357,25 @@ var ingredientItemizer = function(string) {
 // Returns a string with random pizza ingredients nested inside <li> tags
 var makeRandomPizza = function() {
   var pizza = "";
-
-  var numberOfMeats = Math.floor((Math.random() * 4));
-  var numberOfNonMeats = Math.floor((Math.random() * 3));
-  var numberOfCheeses = Math.floor((Math.random() * 2));
-
+  // Refactor using random integer function
+  var numberOfMeats = randomInt(4);
+  var numberOfNonMeats = randomInt(3);
+  var numberOfCheeses = randomInt(2);
+  //
   for (var i = 0; i < numberOfMeats; i++) {
-    pizza = pizza + ingredientItemizer(selectRandomMeat());
+    pizza = pizza + ingredientItemizer(randomArrItem(pizzaIngredients.meats));
   }
 
   for (var j = 0; j < numberOfNonMeats; j++) {
-    pizza = pizza + ingredientItemizer(selectRandomNonMeat());
+    pizza = pizza + ingredientItemizer(randomArrItem(pizzaIngredients.nonMeats));
   }
 
   for (var k = 0; k < numberOfCheeses; k++) {
-    pizza = pizza + ingredientItemizer(selectRandomCheese());
+    pizza = pizza + ingredientItemizer(randomArrItem(pizzaIngredients.cheeses));
   }
 
-  pizza = pizza + ingredientItemizer(selectRandomSauce());
-  pizza = pizza + ingredientItemizer(selectRandomCrust());
+  pizza = pizza + ingredientItemizer(randomArrItem(pizzaIngredients.sauces));
+  pizza = pizza + ingredientItemizer(randomArrItem(pizzaIngredients.crusts));
 
   return pizza;
 };
@@ -367,7 +389,7 @@ var pizzaElementGenerator = function(i) {
       pizzaName,                  // the pizza name itself
       ul;                         // the list of ingredients
 
-  pizzaContainer  = document.createElement("div");
+  pizzaContainer = document.createElement("div");
   pizzaImageContainer = document.createElement("div");
   pizzaImage = document.createElement("img");
   pizzaDescriptionContainer = document.createElement("div");
