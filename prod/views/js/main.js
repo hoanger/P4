@@ -411,13 +411,13 @@ var resizePizzas = function(size) {
     "use strict";
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -430,7 +430,7 @@ var resizePizzas = function(size) {
   function determineDx (elem, size) {
     "use strict";
     var oldWidth = elem.offsetWidth;
-    var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
+    var windowWidth = document.getElementById("randomPizzas").offsetWidth;
     var oldSize = oldWidth / windowWidth;
 
     // Changes the slider value to a percent width
@@ -460,7 +460,7 @@ var resizePizzas = function(size) {
     "use strict";
     // Move reads outside loop so layout is not run each iteration
     // dx and newwidth only needs to be calculated once
-    var pizzaCont = document.querySelectorAll(".randomPizzaContainer");
+    var pizzaCont = document.getElementsByClassName("randomPizzaContainer");
     var pizzaContLen = pizzaCont.length;
     var dx = determineDx(pizzaCont[0], size);
     var newwidth = (pizzaCont[0].offsetWidth + dx) + 'px';
@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // resized pizza image so no need to add style to size
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    document.getElementById("movingPizzas1").appendChild(elem);
   }
   updatePositions();
 });
