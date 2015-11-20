@@ -15,7 +15,7 @@ Creator:
 Cameron Pittman, Udacity Course Developer
 cameron *at* udacity *dot* com
 */
-
+"use strict";
 // As you may have realized, this website randomly generates pizzas.
 // Here are arrays of all possible pizza ingredients.
 var pizzaIngredients = {};
@@ -145,11 +145,13 @@ pizzaIngredients.crusts = [
 // Name generator pulled from http://saturdaykid.com/usernames/generator.html
 // Capitalizes first letter of each word
 String.prototype.capitalize = function() {
+  "use strict";
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
 // Pulls adjective out of array using random number sent from generator
 function getAdj(x){
+  "use strict";
   switch(x) {
     case "dark":
       var dark = ["dark","morbid", "scary", "spooky", "gothic", "deviant", "creepy", "sadistic", "black", "dangerous", "dejected", "haunted",
@@ -214,6 +216,7 @@ function getAdj(x){
 
 // Pulls noun out of array using random number sent from generator
 function getNoun(y) {
+  "use strict";
   switch(y) {
     case "animals":
       var animals = ["flamingo", "hedgehog", "owl", "elephant", "pussycat", "alligator", "dachsund", "poodle", "beagle", "crocodile", "kangaroo",
@@ -282,7 +285,9 @@ function getNoun(y) {
   }
 }
 
-var adjectives = ["dark", "color", "whimsical", "shiny", "noise", "apocalyptic", "insulting", "praise", "scientific"];  // types of adjectives for pizza titles
+// corrected spelling to "noisy" instead of "noise"
+// accidentally found this when I tried refactoring switch statement to two dimensional array
+var adjectives = ["dark", "color", "whimsical", "shiny", "noisy", "apocalyptic", "insulting", "praise", "scientific"];  // types of adjectives for pizza titles
 var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "places", "scifi"];                        // types of nouns for pizza titles
 
 /**
@@ -291,22 +296,23 @@ var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "pl
 * @returns {number} Random integer between 0 and (num - 1)
 */
 function randomInt(range) {
+  "use strict";
   return Math.floor(Math.random() * range);
 }
-
 /**
 * @description Gets random element from array
 * @param {array} arr
 * @returns {obj} random object from arr
 */
 function randomArrItem(arr) {
+  "use strict";
   var randomIndex = randomInt(arr.length);
   return arr[randomIndex];
 }
 
-
 // Generates random numbers for getAdj and getNoun functions and returns a new pizza name
 function generator(adj, noun) {
+  "use strict";
   var adjectivesArr = getAdj(adj);
   var nounsArr = getNoun(noun);
   //var randomAdjective = parseInt(Math.random() * adjectives.length);
@@ -316,48 +322,22 @@ function generator(adj, noun) {
 }
 
 // Chooses random adjective and random noun
-function randomName() {
+function randomName() {"use strict";
   //var randomNumberAdj = parseInt(Math.random() * adjectives.length);
   //var randomNumberNoun = parseInt(Math.random() * nouns.length);
   return generator(randomArrItem(adjectives), randomArrItem(nouns));
 }
-/*
-* Redundant functions
-// These functions return a string of a random ingredient from each respective category of ingredients.
-var selectRandomMeat = function() {
-  //var randomMeat = pizzaIngredients.meats[Math.floor((Math.random() * pizzaIngredients.meats.length))];
-  return randomArrItem(pizzaIngredients.meats);
-};
-
-var selectRandomNonMeat = function() {
-  //var randomNonMeat = pizzaIngredients.nonMeats[Math.floor((Math.random() * pizzaIngredients.nonMeats.length))];
-  return randomArrItem(pizzaIngredients.nonMeats);
-};
-
-var selectRandomCheese = function() {
-  var randomCheese = pizzaIngredients.cheeses[Math.floor((Math.random() * pizzaIngredients.cheeses.length))];
-  return randomCheese;
-};
-
-var selectRandomSauce = function() {
-  var randomSauce = pizzaIngredients.sauces[Math.floor((Math.random() * pizzaIngredients.sauces.length))];
-  return randomSauce;
-};
-
-var selectRandomCrust = function() {
-  var randomCrust = pizzaIngredients.crusts[Math.floor((Math.random() * pizzaIngredients.crusts.length))];
-  return randomCrust;
-};
-*/
 
 var ingredientItemizer = function(string) {
+  "use strict";
   return "<li>" + string + "</li>";
 };
 
 // Returns a string with random pizza ingredients nested inside <li> tags
 var makeRandomPizza = function() {
+  "use strict";
   var pizza = "";
-  // Refactor using random integer function
+  // Refactor using randomInt function
   var numberOfMeats = randomInt(4);
   var numberOfNonMeats = randomInt(3);
   var numberOfCheeses = randomInt(2);
@@ -382,6 +362,7 @@ var makeRandomPizza = function() {
 
 // returns a DOM element for each pizza
 var pizzaElementGenerator = function(i) {
+  "use strict";
   var pizzaContainer,             // contains pizza title, image and list of ingredients
       pizzaImageContainer,        // contains the pizza image
       pizzaImage,                 // the pizza image itself
@@ -422,10 +403,12 @@ var pizzaElementGenerator = function(i) {
 
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) {
+  "use strict";
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
   function changeSliderLabel(size) {
+    "use strict";
     switch(size) {
       case "1":
         document.querySelector("#pizzaSize").innerHTML = "Small";
@@ -445,13 +428,14 @@ var resizePizzas = function(size) {
 
    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
+    "use strict";
     var oldWidth = elem.offsetWidth;
     var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
     var oldSize = oldWidth / windowWidth;
 
-    // TODO: change to 3 sizes? no more xl?
     // Changes the slider value to a percent width
     function sizeSwitcher (size) {
+      "use strict";
       switch(size) {
         case "1":
           return 0.25;
@@ -473,6 +457,7 @@ var resizePizzas = function(size) {
   // Iterates through pizza elements on the page and changes their widths
   // * Reduce jank by avoiding layout thrashing
   function changePizzaSizes(size) {
+    "use strict";
     // Move reads outside loop so layout is not run each iteration
     // dx and newwidth only needs to be calculated once
     var pizzaCont = document.querySelectorAll(".randomPizzaContainer");
@@ -515,6 +500,7 @@ var frame = 0;
 
 // Logs the average amount of time per 10 frames needed to move the sliding background pizzas on scroll.
 function logAverageFrame(times) {   // times is the array of User Timing measurements from updatePositions()
+  "use strict";
   var numberOfEntries = times.length;
   var sum = 0;
   for (var i = numberOfEntries - 1; i > numberOfEntries - 11; i--) {
@@ -528,10 +514,11 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+  "use strict";
   frame++;
   window.performance.mark("mark_start_frame");
-
-  var items = document.querySelectorAll('.mover');
+  // use getElementsByClassName instead of querySelectorAll for performance boost
+  var items = document.getElementsByClassName('mover');
   // Calculate scroll position outside for loop to prevent concurrent read and write cycles
   var scrollPos = document.body.scrollTop;
   for (var i = 0; i < items.length; i++) {
@@ -550,18 +537,21 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+// added requestAnimationFrame for scrolling
+window.addEventListener('scroll', function() {window.requestAnimationFrame(updatePositions)});
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
+  "use strict";
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  // Reduce number of pizzas from 200. My screen resolution sees 18. 40 should be ok.
+  // Got the idea from a forum question
+  for (var i = 0; i < 40; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.333px";
+    // resized pizza image so no need to add style to size
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
