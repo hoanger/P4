@@ -1,9 +1,10 @@
 ## Website Performance Optimization portfolio project documentation
 
-This /prod directory will hold the changes made for the Web Perf Optimization project (P4). Measurements and results will be documented here. The files are in the gh-pages branch so real-world measurements can be taken.
+The /prod directory will hold the changes made for the Web Perf Optimization project (P4). Measurements and results will be documented here. The files are in the gh-pages branch so real-world measurements can be taken.
 
-Page can be opened at http://hoanger.github.io/P4/prod/
-https://github.com/hoanger/P4/tree/gh-pages/prod
+	Page can be opened at http://hoanger.github.io/P4/prod/
+
+	Files can be found in Github repository: https://github.com/hoanger/P4/tree/gh-pages/prod
 
 ### Optimizations for index.html
 
@@ -34,47 +35,27 @@ https://github.com/hoanger/P4/tree/gh-pages/prod
 	DCL: 15ms, onload: 226ms
 	13 requests, 79.9 KB transferred finish 267 ms
 
-### Optimizations for pizza.html
+### Optimizations for pizza.html - changes to main.js
+
+##Start:
+	Time to resize pizzas: Time to resize pizzas: 231.04499999999825ms
+	Average time to generate last 10 frames: 44.6649999999996ms
+
+1. Move for loop interator comparison outside in a variable to avoid multiple calls to "document.querySelectorAll(".randomPizzaContainer").length;" in changePizzaSizes function
+	Time to resize pizzas: 4.539999999997235ms
+
+1. Move scrollTop calculation, var scrollPos = document.body.scrollTop; outside for loop in updatePositions to be only called once
+	Average time to generate last 10 frames: 7.8595000000000255ms
+
+1. Reduced number of sliding pizzas from 200 to 40. My screen resolution only displays 18 at a time.
+
+1. Replace all instances of "ParseInt" with mre efficient "Math.floor" function. Source: https://jsperf.com/math-floor-vs-math-round-vs-parseint/183
+	Average time to generate last 10 frames: 0.6399999999996364ms
+
+1. Replaced "document.querySelector/querySelectorAll" with "getElementById" and "getElementsByClassName" Source: http://jsperf.com/getelementbyid-vs-queryselector
+	Average time to generate last 10 frames: 0.414000000001397ms
+
+1. Minified to "main.min.js" and resized "pizzeria.jpg" for faster load times and js execution
 
 
-####Part 2: Optimize Frames per Second in pizza.html
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js.
-
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
-
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
-
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
-
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
-
-### Sample Portfolios
-
-Feeling uninspired by the portfolio? Here's a list of cool portfolios I found after a few minutes of Googling.
-
-* <a href="http://www.reddit.com/r/webdev/comments/280qkr/would_anybody_like_to_post_their_portfolio_site/">A great discussion about portfolios on reddit</a>
-* <a href="http://ianlunn.co.uk/">http://ianlunn.co.uk/</a>
-* <a href="http://www.adhamdannaway.com/portfolio">http://www.adhamdannaway.com/portfolio</a>
-* <a href="http://www.timboelaars.nl/">http://www.timboelaars.nl/</a>
-* <a href="http://futoryan.prosite.com/">http://futoryan.prosite.com/</a>
-* <a href="http://playonpixels.prosite.com/21591/projects">http://playonpixels.prosite.com/21591/projects</a>
-* <a href="http://colintrenter.prosite.com/">http://colintrenter.prosite.com/</a>
-* <a href="http://calebmorris.prosite.com/">http://calebmorris.prosite.com/</a>
-* <a href="http://www.cullywright.com/">http://www.cullywright.com/</a>
-* <a href="http://yourjustlucky.com/">http://yourjustlucky.com/</a>
-* <a href="http://nicoledominguez.com/portfolio/">http://nicoledominguez.com/portfolio/</a>
-* <a href="http://www.roxannecook.com/">http://www.roxannecook.com/</a>
-* <a href="http://www.84colors.com/portfolio.html">http://www.84colors.com/portfolio.html</a>
