@@ -293,7 +293,7 @@ var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "pl
 /**
 * @description Gets random integer
 * @param {number} range
-* @returns {number} Random integer between 0 and (num - 1)
+* @returns {number} Random integer between 0 and (range - 1)
 */
 function randomInt(range) {
   "use strict";
@@ -310,30 +310,44 @@ function randomArrItem(arr) {
   return arr[randomIndex];
 }
 
-// Generates random numbers for getAdj and getNoun functions and returns a new pizza name
+/**
+* @description Generates random name for each pizza from two passed arrays
+* @param {array} adj
+* @param {array} nound
+* @returns {string} Random pizza name
+*/
 function generator(adj, noun) {
   "use strict";
   var adjectivesArr = getAdj(adj);
   var nounsArr = getNoun(noun);
-  //var randomAdjective = parseInt(Math.random() * adjectives.length);
-  //var randomNoun = parseInt(Math.random() * nouns.length);
   var name = "The " + randomArrItem(adjectivesArr).capitalize() + " " + randomArrItem(nounsArr).capitalize();
   return name;
 }
 
-// Chooses random adjective and random noun
-function randomName() {"use strict";
-  //var randomNumberAdj = parseInt(Math.random() * adjectives.length);
-  //var randomNumberNoun = parseInt(Math.random() * nouns.length);
+/**
+* @description
+*
+* @returns {function} generator output using global variables adjectives and nouns
+*/
+function randomName() {
+  "use strict";
   return generator(randomArrItem(adjectives), randomArrItem(nouns));
 }
-
+/**
+* @description Generates list items in HTML format
+* @param {string} string
+* @returns {string} HTML list item containing passes param
+*/
 var ingredientItemizer = function(string) {
   "use strict";
   return "<li>" + string + "</li>";
 };
 
-// Returns a string with random pizza ingredients nested inside <li> tags
+/**
+* @description Generates list of pizza ingredients for a pizza in HTML format
+*
+* @returns {string} Random pizza ingredients nested inside <li> tags
+*/
 var makeRandomPizza = function() {
   "use strict";
   var pizza = "";
@@ -360,7 +374,11 @@ var makeRandomPizza = function() {
   return pizza;
 };
 
-// returns a DOM element for each pizza
+/**
+* @description Generates full pizza DOM element
+* @param {number} i
+* @returns DOM element for a full pizza with image, description and name
+*/
 var pizzaElementGenerator = function(i) {
   "use strict";
   var pizzaContainer,             // contains pizza title, image and list of ingredients
@@ -401,6 +419,11 @@ var pizzaElementGenerator = function(i) {
   return pizzaContainer;
 };
 
+/**
+* @description Resize pizza elements when slider is moved
+* @param {string} size
+* @returns {} HTML list item containing passes param
+*/
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) {
   "use strict";
@@ -455,7 +478,6 @@ var resizePizzas = function(size) {
   }
 
   // Iterates through pizza elements on the page and changes their widths
-  // * Reduce jank by avoiding layout thrashing
   function changePizzaSizes(size) {
     "use strict";
     // Move reads outside loop so layout is not run each iteration
@@ -464,7 +486,7 @@ var resizePizzas = function(size) {
     var pizzaContLen = pizzaCont.length;
     var dx = determineDx(pizzaCont[0], size);
     var newwidth = (pizzaCont[0].offsetWidth + dx) + 'px';
-
+    // Loop through all pizza containers and change width
     for (var i = 0; i < pizzaContLen; i++) {
       pizzaCont[i].style.width = newwidth;
     }
@@ -482,7 +504,7 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-// move pizzasDiv selector outside for loop
+// Move pizzasDiv selector outside for loop
 var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
