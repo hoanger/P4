@@ -543,8 +543,11 @@ function updatePositions() {
   var items = document.getElementsByClassName('mover');
   // Calculate scroll position outside for loop to prevent concurrent read and write cycles
   var scrollPos = document.body.scrollTop;
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((scrollPos / 1250) + (i % 5));
+  // Save array length and declare phase outside of loop to prevent uneeded calculations and declarations
+  var len = items.length;
+  var phase;
+  for (var i = 0; i < len; i++) {
+    phase = Math.sin((scrollPos / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
@@ -567,10 +570,12 @@ document.addEventListener('DOMContentLoaded', function() {
   "use strict";
   var cols = 8;
   var s = 256;
+  // Declare elem outside loop to prevent repeated creations
+  var elem;
   // Reduce number of pizzas from 200. My screen resolution sees 18. 40 should be ok.
   // Got the idea from a forum question
   for (var i = 0; i < 40; i++) {
-    var elem = document.createElement('img');
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
