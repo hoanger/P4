@@ -57,5 +57,8 @@ The /prod directory will hold the changes made for the Web Perf Optimization pro
 
 1. Minified to "main.min.js" and resized "pizzeria.jpg" for faster load times and js execution
 
+1. Force hardware acceleration in CSS for moving pizzas. Suggestion from code review. Source: http://blog.teamtreehouse.com/increase-your-sites-performance-with-hardware-accelerated-css
+
+1. Declare variables outside for loops in updatePositions(), and the event listener for DOMContentLoaded on advice from code reviewer.
 
 
